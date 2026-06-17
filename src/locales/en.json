@@ -1,0 +1,16 @@
+{
+  "home": {
+    "title": "Welcome"
+  },
+  "about": {
+    "title": "This is about page"
+  },
+  "form": {
+    "title": "Form title"
+  },
+  "nav": {
+    "home": "HOME",
+    "about": "ABOUT",
+    "form": "FORM"
+  }
+}
