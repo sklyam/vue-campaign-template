@@ -5,8 +5,8 @@ A Vue 3 mobile campaign page boilerplate with modular feature toggles.
 ## Quick Start
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 ## Feature Flags
@@ -25,10 +25,10 @@ Configure `VITE_*` in `.env.local`:
 
 ```bash
 # Image optimization
-npm install @vheemstra/vite-plugin-imagemin imagemin-mozjpeg imagemin-pngquant imagemin-webp
+pnpm add @vheemstra/vite-plugin-imagemin imagemin-mozjpeg imagemin-pngquant imagemin-webp
 
 # Bundle analysis
-npm install rollup-plugin-visualizer
+pnpm add rollup-plugin-visualizer
 ```
 
 ## Event Duration
@@ -42,13 +42,12 @@ src/
 ├── main.js              # Entry (auto-selects router or simple mode)
 ├── App.vue              # Router mode (uses <RouterView>)
 ├── _App.simple.vue      # Simple mode (component switching)
-├── api/                 # API layer
+├── api/                 # API layer (client.js + service files)
 ├── components/          # Reusable components
 ├── constants/           # Constants
 ├── locales/             # i18n
 ├── router/              # Vue Router
-├── stores/              # State
-├── utils/               # Utilities
+├── utils/               # Utilities (duration, language, validation)
 ├── views/               # Page views
 └── style.css            # Global styles
 ```
