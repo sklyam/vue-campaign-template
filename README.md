@@ -31,6 +31,47 @@ pnpm add @vheemstra/vite-plugin-imagemin imagemin-mozjpeg imagemin-pngquant imag
 pnpm add rollup-plugin-visualizer
 ```
 
+## Deployment
+
+### Apache (.htaccess)
+
+The root `.htaccess` provides **automatic WebP fallback**: when a browser requests `.jpg`/`.png`/`.gif` and the corresponding `.webp` file exists, Apache serves the `.webp` instead. Requires `mod_rewrite`, `mod_headers`, and `mod_mime`.
+
+### Nginx
+
+For Vite-built SPAs, nginx is the more common choice. Equivalent WebP config:
+
+```nginx
+server {
+    listen 80;
+    root /path/to/dist;
+    index index.html;
+
+    # SPA fallback: all routes → index.html
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # WebP auto-serve
+    location ~* \.(jpe?g|png|gif)$ {
+        add_header Vary Accept;
+        try_files $uri $uri.webp @fallback;
+    }
+    location ~* \.(jpe?g|png|gif)\.webp$ {
+        add_header Content-Type image/webp;
+    }
+    location @fallback {
+        try_files $uri =404;
+    }
+
+    # Cache static assets
+    location /assets {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+}
+```
+
 ## Event Duration
 
 Set `VITE_START_TIME` and `VITE_END_TIME` in `.env.local` to automatically show a Coming Soon / Event Ended page based on the current time.
